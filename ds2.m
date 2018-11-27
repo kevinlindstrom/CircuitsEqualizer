@@ -1,13 +1,25 @@
+format short
 %Data extracted from oscilloscope
 filename = "F0022CH1.CSV";
 M = csvread(filename, 0, 3);
-t = M(1:end, 1);
-V_s = M(1:end, 2);
+%t = M(1:end, 1);
+V_s1 = M(1:end, 2);
+t = 0:.01:2;
 
+f_mid = 261.6255; %Hz
+f_low = 32.70; %Hz
+f_high = 2093.00; %Hz
+
+V_a = 1*cos(2*pi*f_low*t);
+V_b = 1*cos(2*pi*f_mid*t);
+V_c = 1*cos(2*pi*f_high*t);
+
+V_s = V_a + V_b + V_c;
+plot(V_s)
 % Filter Properties
-C1 = 1*10^-6;
-R1 = 10;
-R2 = 10;
+C1 = 3.3e-07;
+R1 = 2000;
+R2 = 3300;
 C2 = 1*10^-6;
 R3 = 10;
 R4 = 10;
